@@ -10,16 +10,26 @@ class App extends React.Component {
     super();
     this.state = {
       products: data.products,
-      cartItems: [],
+      cartItems: localStorage.getItem("cartItems")
+        ? JSON.parse(localStorage.getItem("cartItems"))
+        : [], // persistance
       size: "",
       sort: "",
     };
   }
+  createOrder = (order) => {
+    // send this as a props as cart component
+    alert("need to save order for " + order.name);
+  };
   removeFromCart = (product) => {
     const cartItems = this.state.cartItems.slice();
     this.setState({
       cartItems: cartItems.filter((x) => x._id !== product._id),
     });
+    localStorage.setItem(
+      "cartItems",
+      JSON.stringify(cartItems.filter((x) => x._id !== product._id))
+    ); // persistance
   };
   addToCart = (product) => {
     const cartItems = this.state.cartItems.slice(); //clone copy
@@ -34,6 +44,7 @@ class App extends React.Component {
       cartItems.push({ ...product, count: 1 });
     }
     this.setState({ cartItems });
+    localStorage.setItem("cartItems", JSON.stringify(cartItems)); // persistance
   };
   sortProducts = (event) => {
     console.log(event.target.value);
@@ -96,19 +107,23 @@ class App extends React.Component {
           <div className="content">
             <div className="main">
               <Filter
-                count={this.state.products.length}
-                size={this.state.size}
-                sort={this.state.sort}
-                filterProducts={this.filterProducts}
-                sortProducts={this.sortProducts}
+                count={this.state.products.length}              // sending count as props
+                size={this.state.size}                          // sending size as props
+                sort={this.state.sort}                          // sending filterProducts as props
+                filterProducts={this.filterProducts}            // sending filterProducts as props
+                sortProducts={this.sortProducts}                // sending sortProducts as props
               />
               <Products
-                products={this.state.products}
-                addToCart={this.addToCart}
+                products={this.state.products}                  // sending products as props
+                addToCart={this.addToCart}                      // sending addToCart as props
               ></Products>
             </div>
             <div className="sidebar">
-              <Cart cartItems={this.state.cartItems} removeFromCart={this.removeFromCart} />
+              <Cart
+                cartItems={this.state.cartItems}                // sending cartItems as props
+                removeFromCart={this.removeFromCart}            // sending removeFromCart as props
+                createOrder={this.createOrder}                  // sending createOrder as props
+              />
             </div>
           </div>
         </main>
