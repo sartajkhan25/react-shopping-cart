@@ -65,7 +65,6 @@ footer{
 }
 .sidebar{
   flex:1 20rem;
-  background-color: antiquewhite;
 }
 
 /* Products */
@@ -130,5 +129,47 @@ button:hover{
   justify-content: space-between;
 }
 .filter div{
+  flex: 1;
+}
+/* Cart */
+.cart{
+padding: 1rem;
+margin: 1rem;
+display: flex;
+}
+.cart-header{
+border-bottom: 0.1rem #c0c0c0 solid;
+}
+.cart-items{
+  padding: 0;
+  width: 100%;
+  list-style-type: none;
+}
+.cart-item img{
+  width: 5rem;
+}
+.cart-item li{
+  display: flex;
+}
+.cart-item li div{
+  padding: 0.5rem;
+}
+.cart-item li div:last-child{
+  flex: 1;
+}
+.right{
+  text-align: right;
+}
+.total{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.total>div{
+  font-size: 2rem;
+}
+.total>div,
+.total > button {
   flex: 1;
 }
