@@ -3,7 +3,6 @@ import data from "./data.json";
 import Products from "./components/Products";
 import Filter from "./components/Filter";
 import Cart from "./components/Cart";
-import { thisExpression } from "@babel/types";
 
 class App extends React.Component {
   constructor() {
